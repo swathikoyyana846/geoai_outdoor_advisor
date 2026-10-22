@@ -1,0 +1,254 @@
+{
+    "metadata": {
+        "target_place": "tokyo",
+        "query_center": {
+            "lat": 35.6768601,
+            "lon": 139.7638947
+        },
+        "search_radius_meters": 2000,
+        "timestamp": "2026-10-22T11:02:03.228103Z",
+        "status": "SUCCESS"
+    },
+    "candidate_venues": [
+        {
+            "venue_id": 4999493525,
+            "venue_name": "屋上庭園",
+            "category": "garden",
+            "coordinates": {
+                "lat": 35.673678,
+                "lon": 139.7791065
+            },
+            "live_weather": {
+                "temperature_c": 17.8,
+                "humidity_pct": 55,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 10.8,
+                "wind_direction_deg": 356
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 5015902070,
+            "venue_name": "エスタディオ",
+            "category": "adult_gaming_centre",
+            "coordinates": {
+                "lat": 35.6670187,
+                "lon": 139.7588912
+            },
+            "live_weather": {
+                "temperature_c": 17.8,
+                "humidity_pct": 55,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 10.8,
+                "wind_direction_deg": 356
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 5463561350,
+            "venue_name": "Re Ra Ku",
+            "category": "fitness_centre",
+            "coordinates": {
+                "lat": 35.690615,
+                "lon": 139.7584876
+            },
+            "live_weather": {
+                "temperature_c": 17.3,
+                "humidity_pct": 56,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 6.5,
+                "wind_direction_deg": 354
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 5864663769,
+            "venue_name": "kicxercise",
+            "category": "fitness_centre",
+            "coordinates": {
+                "lat": 35.6678834,
+                "lon": 139.7531656
+            },
+            "live_weather": {
+                "temperature_c": 17.6,
+                "humidity_pct": 55,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 10.1,
+                "wind_direction_deg": 356
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 6463426487,
+            "venue_name": "十思湯",
+            "category": "sauna",
+            "coordinates": {
+                "lat": 35.6908374,
+                "lon": 139.7774506
+            },
+            "live_weather": {
+                "temperature_c": 17.4,
+                "humidity_pct": 56,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 6.5,
+                "wind_direction_deg": 354
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 6464014885,
+            "venue_name": "湊湯",
+            "category": "sauna",
+            "coordinates": {
+                "lat": 35.6726012,
+                "lon": 139.7794959
+            },
+            "live_weather": {
+                "temperature_c": 17.7,
+                "humidity_pct": 55,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 10.1,
+                "wind_direction_deg": 356
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 7440039163,
+            "venue_name": "TOKUCHI",
+            "category": "dance",
+            "coordinates": {
+                "lat": 35.6723147,
+                "lon": 139.7643808
+            },
+            "live_weather": {
+                "temperature_c": 17.6,
+                "humidity_pct": 55,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 10.1,
+                "wind_direction_deg": 356
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 9081538174,
+            "venue_name": "Dr. Stretch",
+            "category": "fitness_centre",
+            "coordinates": {
+                "lat": 35.6929494,
+                "lon": 139.7709741
+            },
+            "live_weather": {
+                "temperature_c": 17.4,
+                "humidity_pct": 56,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 6.5,
+                "wind_direction_deg": 354
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 9584128337,
+            "venue_name": "JOGLIS",
+            "category": "fitness_centre",
+            "coordinates": {
+                "lat": 35.6835202,
+                "lon": 139.7437837
+            },
+            "live_weather": {
+                "temperature_c": 17.2,
+                "humidity_pct": 56,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 6.5,
+                "wind_direction_deg": 354
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        },
+        {
+            "venue_id": 9931582706,
+            "venue_name": "中央区立 日本橋小学校温水プール",
+            "category": "swimming_pool",
+            "coordinates": {
+                "lat": 35.6847509,
+                "lon": 139.7814031
+            },
+            "live_weather": {
+                "temperature_c": 17.7,
+                "humidity_pct": 56,
+                "rain_mm": 0.0,
+                "wind_speed_kmh": 7.6,
+                "wind_direction_deg": 360
+            },
+            "air_quality": {
+                "aqi": 46,
+                "status": "Good"
+            },
+            "pollution_analysis": {
+                "hazard_flag": true,
+                "reason": "WARNING: Wind vector aligns with industrial/traffic corridor, elevated pollutant transport likely."
+            }
+        }
+    ]
+}
