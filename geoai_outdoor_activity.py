@@ -1,5 +1,4 @@
 
-!pip install -q transformers torch accelerate geopy requests requests-cache
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
