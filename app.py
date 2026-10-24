@@ -17,7 +17,17 @@ with col_in1:
     ]
     selected_activity = st.selectbox("Ask about an activity:", activity_options)
     user_query = st.text_input("Type custom activity:", "Good place for a morning walk?") if selected_activity == "Other (Type custom activity...)" else selected_activity
-
+with col_in2:
+    health_options = [
+        "None",
+        "Mild Asthma",
+        "Senior Citizen",
+        "Respiratory Sensitivity",
+        "Cardiovascular Condition",
+        "Other (Type custom condition...)"
+    ]
+    selected_health = st.selectbox("Health Profile / Constraint:", health_options)
+    health_constraint = st.text_input("Type custom health profile/constraint:", "None") if selected_health == "Other (Type custom condition...)" else selected_health
     target_location = st.text_input("Target Location in India (City / Town / Village / Mandal):", "Gajuwaka, Visakhapatnam")
 
 with col_in2:
