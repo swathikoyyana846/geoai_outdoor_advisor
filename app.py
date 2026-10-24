@@ -6,6 +6,33 @@ st.set_page_config(page_title="India Outdoor Advisor", page_icon="🇮🇳", lay
 
 st.title("🇮🇳 India Regional Outdoor Advisor")
 st.write("Grounded spatial recommendations covering 40+ cities, towns, and rural clusters across India.")
+col_in1, col_in2 = st.columns(2)
+with col_in1:
+    activity_options = [
+        "Morning walk or jog",
+        "Evening cycling / bike ride",
+        "Outdoor yoga or meditation",
+        "Children playground & family picnic",
+        "Other (Type custom activity...)"
+    ]
+    selected_activity = st.selectbox("Ask about an activity:", activity_options)
+    user_query = st.text_input("Type custom activity:", "Good place for a morning walk?") if selected_activity == "Other (Type custom activity...)" else selected_activity
+
+    target_location = st.text_input("Target Location in India (City / Town / Village / Mandal):", "Gajuwaka, Visakhapatnam")
+
+with col_in2:
+    health_options = [
+        "None",
+        "Mild Asthma",
+        "Senior Citizen",
+        "Respiratory Sensitivity",
+        "Cardiovascular Condition",
+        "Other (Type custom condition...)"
+    ]
+    selected_health = st.selectbox("Health Profile / Constraint:", health_options)
+    health_constraint = st.text_input("Type custom health profile/constraint:", "None") if selected_health == "Other (Type custom condition...)" else selected_health
+
+    radius = st.slider("Search Radius (meters):", 1000, 15000, 4000, 500)
 
 target_location = st.text_input("Target Location in India (City / Town / Village / Mandal):", "Gajuwaka, Visakhapatnam")
 user_query = st.text_input("Activity:", "Morning walk or jog")
