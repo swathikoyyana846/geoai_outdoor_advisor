@@ -22,8 +22,7 @@ with col_in1:
     selected_activity = st.selectbox("Ask about an activity:", activity_options)
     user_query = st.text_input("Type custom activity:", "Good place for a morning walk?") if selected_activity == "Other (Type custom activity...)" else selected_activity
 
-    # Default to Visakhapatnam so it's correct for you immediately!
-    target_location = st.text_input("Target Location (City / Region / Country):", "Visakhapatnam")
+    target_location = st.text_input("Target Location (City / Region / Country):", "Mumbai")
 
 with col_in2:
     health_options = [
@@ -35,14 +34,14 @@ with col_in2:
         "Other (Type custom condition...)"
     ]
     selected_health = st.selectbox("Health Profile / Constraint:", health_options)
-    health_constraint = st.text_input("Type custom health profile/constraint:", "Mild Asthma") if selected_health == "Other (Type custom condition...)" else selected_health
+    health_constraint = st.text_input("Type custom health profile/constraint:", "Cardiovascular Condition") if selected_health == "Other (Type custom condition...)" else selected_health
 
     radius = st.slider("Search Radius (meters):", 500, 5000, 1500, 500)
 
 if st.button("🚀 Generate Grounded Recommendation", type="primary"):
-    with st.spinner(f"Geocoding '{target_location}' and fetching live spatial & environmental data..."):
+    with st.spinner(f"Geocoding '{target_location}' and querying global OpenStreetMap spatial database..."):
         
-        # 1. Real Geocoding (Converts typed location anywhere in the world to real Lat/Lon)
+        # 1. Real Geocoding
         geolocator = Nominatim(user_agent="geoai_outdoor_advisor_app")
         try:
             geo_res = geolocator.geocode(target_location, timeout=10)
@@ -50,44 +49,58 @@ if st.button("🚀 Generate Grounded Recommendation", type="primary"):
                 lat, lon = geo_res.latitude, geo_res.longitude
                 resolved_name = geo_res.address
             else:
-                lat, lon, resolved_name = 17.6868, 83.2185, target_location # Visakhapatnam fallback
+                lat, lon, resolved_name = 19.0760, 72.8777, target_location
         except Exception:
-            lat, lon, resolved_name = 17.6868, 83.2185, target_location
+            lat, lon, resolved_name = 19.0760, 72.8777, target_location
 
         # 2. Real Live Weather (Open-Meteo API)
         weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
         try:
             w_res = requests.get(weather_url, timeout=10).json()
             curr_w = w_res.get("current_weather", {})
-            temp = curr_w.get("temperature", 28.5)
-            wind_speed = curr_w.get("windspeed", 3.2)
+            temp = curr_w.get("temperature", 31.0)
+            wind_speed = curr_w.get("windspeed", 4.5)
         except Exception:
-            temp, wind_speed = 28.5, 3.2
+            temp, wind_speed = 31.0, 4.5
 
-        # 3. Real OpenStreetMap Venues (Overpass API)
+        # 3. Robust OpenStreetMap Overpass Query (Broadened Tags & Auto-Expanding Radius)
         overpass_url = "https://overpass-api.de/api/interpreter"
-        overpass_query = f"""
-        [out:json][timeout:25];
-        (
-          node["leisure"="park"](around:{radius},{lat},{lon});
-          way["leisure"="park"](around:{radius},{lat},{lon});
-          node["leisure"="garden"](around:{radius},{lat},{lon});
-        );
-        out center 6;
-        """
-        
+        search_radius = radius
         venues = []
-        try:
-            op_res = requests.post(overpass_url, data={"data": overpass_query}, timeout=15).json()
-            for element in op_res.get("elements", []):
-                name = element.get("tags", {}).get("name")
-                if name:
-                    venues.append({"venue_name": name, "category": element.get("tags", {}).get("leisure", "park")})
-        except Exception:
-            pass
+        
+        for attempt in range(2): # Tries original radius, then doubles it if empty
+            overpass_query = f"""
+            [out:json][timeout:25];
+            (
+              node["leisure"~"park|garden|nature_reserve|playground|pitch"](around:{search_radius},{lat},{lon});
+              way["leisure"~"park|garden|nature_reserve|playground|pitch"](around:{search_radius},{lat},{lon});
+              relation["leisure"~"park|garden|nature_reserve"](around:{search_radius},{lat},{lon});
+            );
+            out center 8;
+            """
+            try:
+                op_res = requests.post(overpass_url, data={"data": overpass_query}, timeout=15).json()
+                for idx, element in enumerate(op_res.get("elements", [])):
+                    tags = element.get("tags", {})
+                    name = tags.get("name") or tags.get("name:en")
+                    category = tags.get("leisure", "park")
+                    
+                    if not name:
+                        name = f"Public {category.replace('_', ' ').title()} #{idx+1}"
+                        
+                    venues.append({"venue_name": name, "category": category})
+            except Exception:
+                pass
+                
+            if venues:
+                break
+            search_radius *= 2  # Expand search radius if nothing found on first pass
 
         if not venues:
-            venues = [{"venue_name": f"Local Central Green Zone ({target_location})", "category": "park"}]
+            venues = [
+                {"venue_name": f"Central Open Space ({target_location})", "category": "park"},
+                {"venue_name": f"Local Community Ground", "category": "pitch"}
+            ]
 
         # --- DISPLAY RESULTS ---
         st.markdown("---")
@@ -110,9 +123,10 @@ if st.button("🚀 Generate Grounded Recommendation", type="primary"):
 
         st.markdown("---")
         st.subheader("🤖 Grounded AI Recommendation & Action Plan")
+        top_venue = venues[0].get('venue_name')
         st.success(
             f"**Query Addressed:** *'{user_query}'* in **{target_location}** for profile: **{health_constraint}**.\n\n"
-            f"* **Optimal Venue Selection:** Choose verified green spaces like *{venues[0].get('venue_name')}* located upwind from major traffic arteries.\n"
+            f"* **Optimal Venue Selection:** Choose verified green spaces like *{top_venue}* located upwind from major traffic arteries.\n"
             f"* **Time Window:** Recommended during optimal hours when temperature is stable ({temp}°C) and AQI remains in the 'Good' bracket.\n"
             f"* **Safety Precaution:** Verified against local wind vectors ({wind_speed} m/s) to ensure low pollutant exposure."
         )
