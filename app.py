@@ -263,4 +263,4 @@ if st.button("🚀 Generate Grounded Recommendation", type="primary"):
                 venues = [{"venue_name": "Singapore Botanic Gardens", "area": "Cluny Road", "category": "garden"}, {"venue_name": "Gardens by the Bay", "area": "Marina Bay", "category": "park"}, {"venue_name": "MacRitchie Reservoir Park", "area": "Central Catchment", "category": "nature_reserve"}]
             elif "sydney" in loc_l:
                 venues = [{"venue_name": "Royal Botanic Garden", "area": "Sydney CBD", "category": "garden"}, {"venue_name": "Centennial Park", "area": "Eastern Suburbs", "category": "park"}, {"venue_name": "Hyde Park Sydney", "area": "Inner City", "category": "park"}]
-            elif "dubai" in loc_l
+            elif "dubai" in loc_l:
