@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from enum import Enum
 from geopy.geocoders import Nominatim
+import os
+import uvicorn
 
 app = FastAPI(title="GeoAI Outdoor Advisor API", description="GeoAI Outdoor Advisor - Global & India Coverage")
 
@@ -74,7 +76,6 @@ def get_recommendation(
     health_condition: HealthEnum = HealthEnum.none,
     radius_meters: int = 5000
 ):
-    # Geocoding location worldwide
     geolocator = Nominatim(user_agent="geoai_global_advisor")
     try:
         geo_res = geolocator.geocode(target_location, addressdetails=True, timeout=10)
@@ -88,14 +89,12 @@ def get_recommendation(
     except Exception:
         lat, lon, resolved, address_dict = 17.6868, 83.2185, target_location, {}
 
-    # Extract locality name cleanly
     loc_key = target_location.lower().strip()
     locality = (address_dict.get('city') or 
                 address_dict.get('town') or 
                 address_dict.get('state') or 
                 target_location.split(',')[0]).title().strip()
 
-    # Check database or fallback dynamically, filtering by radius
     matched_venues = None
     for key in LOCATION_DATABASE:
         if key in loc_key:
@@ -109,7 +108,6 @@ def get_recommendation(
             {"rank": 3, "venue_name": f"{locality} Community Recreational Ground", "area": f"{locality} District Zone", "category": "pitch", "distance_meters": min(4500, radius_meters)}
         ]
 
-    # Custom Health Advisory based on health condition input
     health_lower = health_condition.value.lower()
     if "asthma" in health_lower or "respiratory" in health_lower:
         health_advisory = "Air Quality Caution: Low physical strain recommended due to respiratory considerations."
@@ -128,3 +126,7 @@ def get_recommendation(
         "coordinates": {"latitude": lat, "longitude": lon},
         "recommendations": matched_venues
     }
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
